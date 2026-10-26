@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>貯水タイマー</title>
+<meta name="theme-color" content="#14213d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="貯水タイマー">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="state-idle">
+<main id="main" class="screen">
+  <header class="bar">
+    <h1 id="stateLabel">待機中</h1>
+    <button id="openSettings" class="icon-btn" aria-label="設定">⚙</button>
+  </header>
+
+  <section class="card">
+    <label for="route">貯水経路</label>
+    <select id="route"></select>
+    <p class="sub">流量：<strong id="flow">--</strong> L/分</p>
+
+    <label for="liters">貯水量（L）</label>
+    <input id="liters" type="text" inputmode="decimal" autocomplete="off" placeholder="例：500">
+    <p id="error" class="error" role="alert"></p>
+  </section>
+
+  <section class="card center">
+    <p class="sub">予想所要時間：<strong id="estimate">--</strong></p>
+    <div id="display" class="display" aria-live="off">--:--</div>
+    <p class="sub" id="endRow" hidden>終了予定時刻：<strong id="endTime">--:--:--</strong></p>
+  </section>
+
+  <section class="buttons">
+    <button id="btnStart" class="btn primary">スタート</button>
+    <button id="btnPause" class="btn warn" hidden>一時停止</button>
+    <button id="btnResume" class="btn primary" hidden>再開</button>
+    <button id="btnStopAlarm" class="btn alarm" hidden>アラーム停止</button>
+    <button id="btnReset" class="btn" hidden>リセット</button>
+  </section>
+
+  <p class="notice">⚠ iPhoneの画面ロック中・バックグラウンド（他のアプリを開いている間）では、アラームが鳴らない場合があります。タイマー動作中はこの画面を開いたままにしてください。</p>
+</main>
+
+<section id="settings" class="screen" hidden>
+  <header class="bar">
+    <h1>経路設定</h1>
+    <button id="closeSettings" class="btn small">閉じる</button>
+  </header>
+  <p class="sub pad">変更は自動で保存されます。</p>
+  <p id="settingsError" class="error pad" role="alert"></p>
+  <div id="routeList"></div>
+  <div class="pad"><button id="addRoute" class="btn primary">＋ 経路を追加</button></div>
+</section>
+
+<div id="modal" class="modal" hidden>
+  <div class="dialog" role="alertdialog" aria-modal="true">
+    <p id="modalMsg"></p>
+    <div class="dialog-btns">
+      <button id="modalCancel" class="btn">キャンセル</button>
+      <button id="modalOk" class="btn danger">OK</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
